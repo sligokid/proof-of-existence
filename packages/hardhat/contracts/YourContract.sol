@@ -6,17 +6,28 @@ pragma solidity >=0.8.0 <0.9.0;
 
 contract YourContract {
 
-  //event SetPurpose(address sender, string purpose);
+  mapping (bytes32 => bool) private proofs;
 
-  string public purpose = "Building Unstoppable Apps";
+  // FIXME emit a message instead
+  bool public exists = false;
 
-  constructor() {
-    // what should we do on deploy?
+  function check(string memory document) public returns (bool) {
+    bytes32 proof = getHash(document);
+    exists = search(proof);
+    return exists;
   }
 
-  function setPurpose(string memory newPurpose) public {
-      purpose = newPurpose;
-      //console.log(msg.sender,"set purpose to",purpose);
-      //emit SetPurpose(msg.sender, purpose);
+  function record(string memory document) public {
+    bytes32 proof = getHash(document);
+    proofs[proof] = true;
   }
+
+  function getHash(string memory document) private returns (bytes32) {
+    return sha256(abi.encode(document));
+  }
+
+  function search(bytes32 proof) private returns(bool) {
+    return proofs[proof];
+  }
+
 }
