@@ -19,7 +19,7 @@ contract LandRegistry is Ownable {
         emit UpdateEventWindow(newOwner, "is now the Registrar");
     }
 
-    function publicProofOfExistance(string memory title) public returns (bool) {
+    function proofOfExistance(string memory title) public returns (bool) {
         bytes32 proof = getHash(title);
         // Do not complete if not found
         require(search(proof), "This proof is NOT registered");
@@ -29,7 +29,7 @@ contract LandRegistry is Ownable {
         return true;
     }
 
-    function privateRegisterExistance(string memory title) public onlyOwner {
+    function registerExistance(string memory title) public onlyOwner {
         bytes32 proof = getHash(title);
         // Do not register a if already registered
         require(proofs[proof] == 0, "This proof is ALREADY registered");

@@ -1,93 +1,92 @@
-# 🏗 Scaffold-ETH
+# Proof of Existence (Ethereum)
 
-> everything you need to build on Ethereum! 🚀
-
-🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
-
-![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
-
-
-# 🏄‍♂️ Quick Start
-
-Prerequisites: [Node](https://nodejs.org/dist/latest-v12.x/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
-
-> clone/fork 🏗 scaffold-eth:
-
+### Setup
+> node version: 
 ```bash
-git clone https://github.com/austintgriffith/scaffold-eth.git
+node -v
+v12.16.3
 ```
 
-> install and start your 👷‍ Hardhat chain:
-
+> Install project dependencies
 ```bash
-cd scaffold-eth
 yarn install
-yarn chain
 ```
 
-> in a second terminal window, start your 📱 frontend:
+>Shell 1 - Launch an ethereum test chain (Hardhat) 
 
 ```bash
-cd scaffold-eth
+yarn chain
+`````
+
+>Shell 2 - Start web client UI and connect to chain (scaffold-eth) 
+
+```bash
 yarn start
 ```
 
-> in a third terminal window, 🛰 deploy your contract:
-
+>Shell 3 - Deploy smart contract to chain (Solidity) 
 ```bash
-cd scaffold-eth
 yarn deploy
 ```
+---
+### Smart Registration  
+http://localhost:3000/
 
-🔏 Edit your smart contract `LandRegistry.sol` in `packages/hardhat/contracts`
+When the browser loads, you will be introduced to an instance of scaffold-eth that provides you with a wallet and account 
+so that you can interact with the Ethereum deployed Land Registry Smart Contract via your account.
+- By default your account is the owner of the contract, and assumes the role of the Registrar. 
+- Alternative accounts (citizens) can be generated using another browser (incognito).
 
-📝 Edit your frontend `App.jsx` in `packages/react-app/src`
+#### Grab some Gas
+Before you begin, you need to fund your account with some gas. Almost all transaction calls incur gas.
+- In the top right of your screen select '__Grab funds from the faucet__'
 
-💼 Edit your deployment scripts in `packages/hardhat/deploy`
+#### Scenarios 
+Note: For the following scenarios the 'title' is the string representation of the title data, ie the JSON object for registration.
 
-📱 Open http://localhost:3000 to see the app
+#### Register a proof 
+As a registrar
+* enter the title `ATITLE` in the `proofOfExistance` box
+* click send
+* Registrar is notified by an exception 'this proof is NOT registered'. 
 
-# 📚 Documentation
+As a registrar
+* enter the title `ATITLE` in the `registerExistance` box
+* click send
+* Everyone is notified his address 'has registered this proof'. 
 
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
+As a registrar
+* enter the title `ATITLE` in the `registerExistance` box
+* click send
+* Everyone is notified that this proof exists. 
 
-# 🔭 Learning Solidity
+#### Citizen query a proof (Incognito browser)
+As a citizen
+* enter the title `BTITLE` in the `proofOfExistance` box
+* click send
+* citizen is notified by an exception 'this proof is NOT registered'. 
 
-📕 Read the docs: https://docs.soliditylang.org
+As a citizen
+* enter the title `ATITLE` in the `proofOfExistance` box
+* click send
+* Everyone is notified his address 'has registered this proof'. 
 
-📚 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `LandRegistry.sol` in **🏗 scaffold-eth**
+### Role Based services
+The smart contract is `Ownable` meaning it is owned by the deploying account (Registrar)
+- Role: Registrar
+    - Only the Registrar can register proofs
+    - The Registrar can transfer the ownership of the contract to another address ie another Registrar
+    - The Registrar can renounce ownership of the contract meaning it will noo longer accept registrations.
+- Role: Citizen
+    - The citizen can only request the `proofOfExistance` service. 
+    - Access to all other methods is restricted to the owner of the contract.
 
-- [Primitive Data Types](https://solidity-by-example.org/primitives/)
-- [Mappings](https://solidity-by-example.org/mapping/)
-- [Structs](https://solidity-by-example.org/structs/)
-- [Modifiers](https://solidity-by-example.org/function-modifier/)
-- [Events](https://solidity-by-example.org/events/)
-- [Inheritance](https://solidity-by-example.org/inheritance/)
-- [Payable](https://solidity-by-example.org/payable/)
-- [Fallback](https://solidity-by-example.org/fallback/)
+### Future Improvements 
+There is an opportunity to introduce decentralised filestorage for the documnent that the proof represents and then render a link
+to that document on proof of existance. A content addressed storage such as IPFS or filecoin would be a good fit. 
 
-📧 Learn the [Solidity globals and units](https://solidity.readthedocs.io/en/v0.6.6/units-and-global-variables.html)
-
-# 🛠 Buidl
-
-Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
-
-
-# 💬 Support Chat
-
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
+It would be better to have IPFS generate the hash of the content off chain, since all calls on chain incur gas.
 
 ---
-
-🎛 Any web3 dev environment is complex, that's why 🏗 Scaffold-ETH comes with everything you need, already working together:
-
-- Hardhat for your local blockchain, deploying, and testing smart contracts.
-- React for building a frontend, using many useful pre-made components and hooks.
-- Ant for your UI. (You can easily changed to another library you prefer)
-- Surge / S3 / IPFS for publishing your app.
-- Tenderly / The Graph / Etherscan / Infura / Blocknative for infrastructure.
-- Support for L2 / Sidechains like Optimism and Arbitrum.
-
----
-
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
+##### Credits
+🙏 This project is a fork of scaffold-eth, a rapid feedback etheruem SDK (https://github.com/austintgriffith/scaffold-eth.git)
