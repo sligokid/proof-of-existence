@@ -1,12 +1,12 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import WalletLink from "walletlink";
-import { Alert, Button, Col, Menu, Row } from "antd";
+import {Alert, Button, Col, List, Menu, Row} from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
+import {Account, Address, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch} from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -420,6 +420,22 @@ function App(props) {
             </Link>
           </Menu.Item>
         </Menu>
+
+        <div style={{ width: 600, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+          <h2>Events:</h2>
+          <List
+            bordered
+            dataSource={setPurposeEvents}
+            renderItem={item => {
+              return (
+                <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>
+                  <Address address={item[0]} ensProvider={mainnetProvider} fontSize={16} />
+                  {item[1]}
+                </List.Item>
+              );
+            }}
+          />
+        </div>
 
         <Switch>
           <Route exact path="/">
