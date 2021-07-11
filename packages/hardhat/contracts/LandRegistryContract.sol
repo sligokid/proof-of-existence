@@ -11,27 +11,30 @@ contract LandRegistry is Ownable {
 
     constructor(address _owner) public {
         transferOwnership(_owner);
-        console.log("Smart Contract Wallet is owned by:",_owner);
+        console.log("Smart Contract is owned by:", _owner);
     }
 
-    function verifyTitle(string memory title) public returns (bool) {
+    function transferOwnership(address newOwner) public override {
+        super.transferOwnership(newOwner);
+        emit UpdateEventWindow(newOwner, "is now the Registrar");
+    }
+
+    function publicProofOfExistance(string memory title) public returns (bool) {
         bytes32 proof = getHash(title);
         // Do not complete if not found
-        require(search(proof), "NOT FOUND");
+        require(search(proof), "This proof is NOT registered");
         //when = proofs[proof];
         //emit ("Proof was resgistered at:");
-        emit UpdateEventWindow(msg.sender, "title exists");
+        emit UpdateEventWindow(msg.sender, "This proof exists");
         return true;
     }
 
-    function registerTitle(string memory title) public onlyOwner {
-        //require(msg.sender==owner,"NOT THE OWNER!");
-        // FIXME only the Registrar can register a title
-        // Do not register a if already registered
+    function privateRegisterExistance(string memory title) public onlyOwner {
         bytes32 proof = getHash(title);
-        require(proofs[proof] == 0, "ALREADY REGISTERED");
+        // Do not register a if already registered
+        require(proofs[proof] == 0, "This proof is ALREADY registered");
         proofs[proof] = block.timestamp;
-        emit UpdateEventWindow(msg.sender, "has registered title");
+        emit UpdateEventWindow(msg.sender, "has registered this proof");
     }
 
     function getHash(string memory title) private returns (bytes32) {
