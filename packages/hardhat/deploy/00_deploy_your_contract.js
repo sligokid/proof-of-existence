@@ -6,9 +6,11 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   await deploy("LandRegistry", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: ["Hello"],
+    args: ["0xae8B7983553F17313c060460Cc0d96b12D19eFdf"],
     log: true,
   });
+
+  //const LandRegistry = await ethers.getContractAt('LandRegistry', "0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A")
 
   /*
     // Getting a previously deployed contract

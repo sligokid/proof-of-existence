@@ -9,6 +9,13 @@ contract LandRegistry {
 
     event UpdateEventWindow(address sender, string message);
 
+    address public owner;
+
+    constructor(address _owner) public {
+        owner = _owner;
+        console.log("Smart Contract Wallet is owned by:",owner);
+    }
+
     function verifyTitle(string memory title) public returns (bool) {
         bytes32 proof = getHash(title);
         // Do not complete if not found
@@ -20,6 +27,7 @@ contract LandRegistry {
     }
 
     function registerTitle(string memory title) public {
+        require(msg.sender==owner,"NOT THE OWNER!");
         // FIXME only the Registrar can register a title
         // Do not register a if already registered
         bytes32 proof = getHash(title);
