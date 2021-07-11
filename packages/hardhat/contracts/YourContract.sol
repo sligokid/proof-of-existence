@@ -7,29 +7,25 @@ contract YourContract {
 
     mapping(bytes32 => uint256) private proofs;
 
-    // FIXME emit a message instead
-    bool public exists = false;
-    uint256 public when;
+    event SetPurpose(address sender, string message);
 
-    event SetPurpose(address sender, address friend, bool isFriend);
-
-    function check(string memory document) public returns (bool) {
+    function checkForExistance(string memory document) public returns (bool) {
         bytes32 proof = getHash(document);
         // Do not complete if not found
-        require(exists = search(proof), "NOT FOUND");
-        when = proofs[proof];
+        require(search(proof), "NOT FOUND");
+        //when = proofs[proof];
         //emit ("Proof was resgistered at:");
-        emit SetPurpose(msg.sender, msg.sender, true);
-        return exists;
+        emit SetPurpose(msg.sender, "document exists");
+        return true;
     }
 
-    function record(string memory document) public {
-        emit SetPurpose(msg.sender, msg.sender, true);
+    function recordExistance(string memory document) public {
+        // FIXME only the Registrar can register a title
         // Do not register a if already registered
         bytes32 proof = getHash(document);
-        require(proofs[proof] == 0, "ALREADY REGISTERD");
+        require(proofs[proof] == 0, "ALREADY REGISTERED");
         proofs[proof] = block.timestamp;
-        //emit ("Proof exists as of now: ");
+        emit SetPurpose(msg.sender, "has registered document");
     }
 
     function getHash(string memory document) private returns (bytes32) {
