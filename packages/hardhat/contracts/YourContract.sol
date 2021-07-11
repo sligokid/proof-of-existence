@@ -3,33 +3,33 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "hardhat/console.sol";
 
-contract YourContract {
+contract LandRegistry {
 
     mapping(bytes32 => uint256) private proofs;
 
     event SetPurpose(address sender, string message);
 
-    function checkForExistance(string memory document) public returns (bool) {
-        bytes32 proof = getHash(document);
+    function verifyTitle(string memory title) public returns (bool) {
+        bytes32 proof = getHash(title);
         // Do not complete if not found
         require(search(proof), "NOT FOUND");
         //when = proofs[proof];
         //emit ("Proof was resgistered at:");
-        emit SetPurpose(msg.sender, "document exists");
+        emit SetPurpose(msg.sender, "title exists");
         return true;
     }
 
-    function recordExistance(string memory document) public {
+    function registerTitle(string memory title) public {
         // FIXME only the Registrar can register a title
         // Do not register a if already registered
-        bytes32 proof = getHash(document);
+        bytes32 proof = getHash(title);
         require(proofs[proof] == 0, "ALREADY REGISTERED");
         proofs[proof] = block.timestamp;
-        emit SetPurpose(msg.sender, "has registered document");
+        emit SetPurpose(msg.sender, "has registered title");
     }
 
-    function getHash(string memory document) private returns (bytes32) {
-        return sha256(abi.encode(document));
+    function getHash(string memory title) private returns (bytes32) {
+        return sha256(abi.encode(title));
     }
 
     function search(bytes32 proof) private returns (bool) {

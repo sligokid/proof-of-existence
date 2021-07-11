@@ -3,7 +3,7 @@
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  await deploy("YourContract", {
+  await deploy("LandRegistry", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     // args: ["Hello"],
@@ -12,13 +12,13 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   /*
     // Getting a previously deployed contract
-    const YourContract = await ethers.getContract("YourContract", deployer);
-    await YourContract.setPurpose("Hello");
+    const LandRegistry = await ethers.getContract("LandRegistry", deployer);
+    await LandRegistry.setPurpose("Hello");
     
-    //const yourContract = await ethers.getContractAt('YourContract', "0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A") //<-- if you want to instantiate a version of a contract at a specific address!
+    //const LandRegistry = await ethers.getContractAt('LandRegistry', "0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A") //<-- if you want to instantiate a version of a contract at a specific address!
   */
 };
-module.exports.tags = ["YourContract"];
+module.exports.tags = ["LandRegistry"];
 
 /*
 Tenderly verification
