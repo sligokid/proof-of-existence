@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 
   ~ How can I use? ~
 
-  const setPurposeEvents = useEventListener(readContracts, "LandRegistry", "SetPurpose", localProvider, 1);
+  const UpdateEventWindowEvents = useEventListener(readContracts, "LandRegistry", "UpdateEventWindow", localProvider, 1);
 
   ~ Features ~
 
   - Provide readContracts by loading contracts (see more on ContractLoader.js)
   - Specify the name of the contract, in this case it is "LandRegistry"
-  - Specify the name of the event in the contract, in this case we keep track of "SetPurpose" event
+  - Specify the name of the event in the contract, in this case we keep track of "UpdateEventWindow" event
   - Specify the provider
 */
 

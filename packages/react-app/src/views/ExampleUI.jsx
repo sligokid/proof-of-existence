@@ -8,7 +8,7 @@ import { Address, Balance } from "../components";
 
 export default function ExampleUI({
   purpose,
-  setPurposeEvents,
+  UpdateEventWindowEvents,
   address,
   mainnetProvider,
   localProvider,
@@ -38,9 +38,9 @@ export default function ExampleUI({
           <Button
             style={{ marginTop: 8 }}
             onClick={async () => {
-              /* look how you call setPurpose on your contract: */
+              /* look how you call UpdateEventWindow on your contract: */
               /* notice how you pass a call back for tx updates too */
-              const result = tx(writeContracts.LandRegistry.setPurpose(newPurpose), update => {
+              const result = tx(writeContracts.LandRegistry.UpdateEventWindow(newPurpose), update => {
                 console.log("📡 Transaction Update:", update);
                 if (update && (update.status === "confirmed" || update.status === 1)) {
                   console.log(" 🍾 Transaction " + update.hash + " finished!");
@@ -94,8 +94,8 @@ export default function ExampleUI({
         <div style={{ margin: 8 }}>
           <Button
             onClick={() => {
-              /* look how you call setPurpose on your contract: */
-              tx(writeContracts.LandRegistry.setPurpose("🍻 Cheers"));
+              /* look how you call UpdateEventWindow on your contract: */
+              tx(writeContracts.LandRegistry.UpdateEventWindow("🍻 Cheers"));
             }}
           >
             Set Purpose to &quot;🍻 Cheers&quot;
@@ -121,13 +121,13 @@ export default function ExampleUI({
         <div style={{ margin: 8 }}>
           <Button
             onClick={() => {
-              /* look how we call setPurpose AND send some value along */
+              /* look how we call UpdateEventWindow AND send some value along */
               tx(
-                writeContracts.LandRegistry.setPurpose("💵 Paying for this one!", {
+                writeContracts.LandRegistry.UpdateEventWindow("💵 Paying for this one!", {
                   value: utils.parseEther("0.001"),
                 }),
               );
-              /* this will fail until you make the setPurpose function payable */
+              /* this will fail until you make the UpdateEventWindow function payable */
             }}
           >
             Set Purpose With Value
@@ -140,7 +140,7 @@ export default function ExampleUI({
               tx({
                 to: writeContracts.LandRegistry.address,
                 value: utils.parseEther("0.001"),
-                data: writeContracts.LandRegistry.interface.encodeFunctionData("setPurpose(string)", [
+                data: writeContracts.LandRegistry.interface.encodeFunctionData("UpdateEventWindow(string)", [
                   "🤓 Whoa so 1337!",
                 ]),
               });
@@ -160,7 +160,7 @@ export default function ExampleUI({
         <h2>Events:</h2>
         <List
           bordered
-          dataSource={setPurposeEvents}
+          dataSource={UpdateEventWindowEvents}
           renderItem={item => {
             return (
               <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>

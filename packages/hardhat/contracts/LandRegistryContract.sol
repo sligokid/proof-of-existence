@@ -7,7 +7,7 @@ contract LandRegistry {
 
     mapping(bytes32 => uint256) private proofs;
 
-    event SetPurpose(address sender, string message);
+    event UpdateEventWindow(address sender, string message);
 
     function verifyTitle(string memory title) public returns (bool) {
         bytes32 proof = getHash(title);
@@ -15,7 +15,7 @@ contract LandRegistry {
         require(search(proof), "NOT FOUND");
         //when = proofs[proof];
         //emit ("Proof was resgistered at:");
-        emit SetPurpose(msg.sender, "title exists");
+        emit UpdateEventWindow(msg.sender, "title exists");
         return true;
     }
 
@@ -25,7 +25,7 @@ contract LandRegistry {
         bytes32 proof = getHash(title);
         require(proofs[proof] == 0, "ALREADY REGISTERED");
         proofs[proof] = block.timestamp;
-        emit SetPurpose(msg.sender, "has registered title");
+        emit UpdateEventWindow(msg.sender, "has registered title");
     }
 
     function getHash(string memory title) private returns (bytes32) {

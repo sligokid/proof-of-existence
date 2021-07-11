@@ -188,7 +188,7 @@ function App(props) {
   const purpose = useContractReader(readContracts, "LandRegistry", "purpose");
 
   // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(readContracts, "LandRegistry", "SetPurpose", localProvider, 1);
+  const UpdateEventWindowEvents = useEventListener(readContracts, "LandRegistry", "UpdateEventWindow", localProvider, 1);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -425,7 +425,7 @@ function App(props) {
           <h2>Events:</h2>
           <List
             bordered
-            dataSource={setPurposeEvents}
+            dataSource={UpdateEventWindowEvents}
             renderItem={item => {
               return (
                 <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>
@@ -473,7 +473,7 @@ function App(props) {
               writeContracts={writeContracts}
               readContracts={readContracts}
               purpose={purpose}
-              setPurposeEvents={setPurposeEvents}
+              UpdateEventWindowEvents={UpdateEventWindowEvents}
             />
           </Route>
           <Route path="/mainnetdai">

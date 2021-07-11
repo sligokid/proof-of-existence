@@ -14,11 +14,11 @@ describe("My Dapp", function () {
       myContract = await LandRegistry.deploy();
     });
 
-    describe("setPurpose()", function () {
+    describe("UpdateEventWindow()", function () {
       it("Should be able to set a new purpose", async function () {
         const newPurpose = "Test Purpose";
 
-        await myContract.setPurpose(newPurpose);
+        await myContract.UpdateEventWindow(newPurpose);
         expect(await myContract.purpose()).to.equal(newPurpose);
       });
     });

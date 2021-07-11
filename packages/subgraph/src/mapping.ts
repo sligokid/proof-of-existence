@@ -1,11 +1,11 @@
 import { BigInt, Address } from "@graphprotocol/graph-ts"
 import {
   LandRegistry,
-  SetPurpose
+  UpdateEventWindow
 } from "../generated/LandRegistry/LandRegistry"
 import { Purpose, Sender } from "../generated/schema"
 
-export function handleSetPurpose(event: SetPurpose): void {
+export function handleUpdateEventWindow(event: UpdateEventWindow): void {
 
   let senderString = event.params.sender.toHexString()
 

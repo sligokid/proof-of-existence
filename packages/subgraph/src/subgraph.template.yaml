@@ -20,6 +20,6 @@ dataSources:
         - name: LandRegistry
           file: ./abis/localhost_LandRegistry.json
       eventHandlers:
-        - event: SetPurpose(address,string)
-          handler: handleSetPurpose
+        - event: UpdateEventWindow(address,string)
+          handler: handleUpdateEventWindow
       file: ./src/mapping.ts

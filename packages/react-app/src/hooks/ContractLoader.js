@@ -22,8 +22,8 @@ const { ethers } = require("ethers");
   - Example of keeping track of "purpose" variable by loading contracts into readContracts
     and using ContractReader.js hook:
     const purpose = useContractReader(readContracts,"LandRegistry", "purpose")
-  - Example of using setPurpose function from our contract and writing transactions by Transactor.js helper:
-    tx( writeContracts.LandRegistry.setPurpose(newPurpose) )
+  - Example of using UpdateEventWindow function from our contract and writing transactions by Transactor.js helper:
+    tx( writeContracts.LandRegistry.UpdateEventWindow(newPurpose) )
 
   config can include:
   - chainId - to hardcode the chainId, irrespective of the providerOrSigner chainId
